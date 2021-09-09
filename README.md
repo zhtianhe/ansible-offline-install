@@ -11,7 +11,7 @@
 
 ```
 cd /tmp
-git clone https://github.com/ghl1024/ansible-offline-install.git
+git clone https://github.com/zhtianhe/ansible-offline-install.git
 cd ansible-offline-install/ansible
 sh install.sh
 ```
@@ -20,8 +20,17 @@ sh install.sh
 
 ```
 cd /tmp
-wget -c https://github.com/ghl1024/ansible-offline-install/releases/download/V1/ansible-offline-install.tar.gz
+wget -c https://github.com/zhtianhe/ansible-offline-install/releases/download/V1/ansible-offline-install.tar.gz
 tar xf ansible-offline-install.tar.gz
 cd ansible
 sh install.sh
 ```
+
+```
+ 
+ - Asianux4sp4 安装成功  执行时有警告信息原因是系统 python 太旧了 屏蔽方法： ` alias ansible='ansible 2>/dev/null' `
+ - Asianux7.6  安装成功
+ - centos7.6   安装成功
+ 
+ 注意：
+    挂载本地镜像，脚本中 ` yum install ` 需要用到。 

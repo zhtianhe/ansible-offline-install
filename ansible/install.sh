@@ -1,21 +1,64 @@
 #!/bin/bash
 
-export PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH    
 set -e
-
+set +x
 #安装系统依赖
-yum install -y python-devel openssl-devel libffi-devel gcc gcc-c++
+yum install -y python-dateutil gcc gcc-c++ bison flex readline-devel zlib-devel tcl wget  unzip xz  make gmake automake libtool libtool texinfo
+yum install -y python-devel  openssl-devel libffi-devel 
+
+#######################################
+#   旧版本需要安装部分 
+#######################################
 if [ $? = "0" ]; then
-    #安装setuptools
-    unzip setuptools-41.1.0.zip
-    cd setuptools-41.1.0
-    python setup.py install
+    echo "安装:autoconf-2.69"	
+    tar xvf autoconf-2.69.tar.xz
+    cd autoconf-2.69
+    ./configure  && make && make install    
+
 else
     echo "系统依赖安装失败"
     exit 1
 fi
+if [ $? = "0" ]; then
+    echo "安装:libffi-3.4.2"
+    cd ..	
+    tar xvf libffi-3.4.2.tar.bz2
+    cd libffi-3.4.2
+    ./autogen.sh
+    ./configure  && make && make install
+else
+    echo "安装:autoconf-2.69 失败"	
+    exit 1
+fi
+
+if [ $? = "0" ]; then
+    echo "安装:Python-2.7.18.tar.xz"
+    cd ..	
+    tar xvf Python-2.7.18.tar.xz
+    cd Python-2.7.18    
+    ./configure  && make && make install
+else
+    echo "安装:libffi-3.4.2 失败"
+    exit 1
+fi
+
+#######################################
+#   必须安装部分
+#######################################
+if [ $? = "0" ]; then
+    echo "安装setuptools"
+    cd ..
+    unzip setuptools-41.1.0.zip
+    cd setuptools-41.1.0
+    python setup.py install
+else
+    echo "安装:Python-2.7.18 失败"	
+    exit 1
+fi
 if [ $? = "0" ]; then   
-    #安装pycrypto
+    echo "安装pycrypto"
     cd ..
     tar -xzf pycrypto-2.6.1.tar.gz 
     cd pycrypto-2.6.1
@@ -25,7 +68,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then   
-    #安装PyYAML
+    echo "安装PyYAML"
     cd ..
     tar -xzf PyYAML-5.1.tar.gz 
     cd PyYAML-5.1
@@ -35,7 +78,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装MarkupSafe
+    echo 安装MarkupSafe
     cd ..
     tar -xzf MarkupSafe-1.1.1.tar.gz 
     cd MarkupSafe-1.1.1
@@ -45,7 +88,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装Jinja2
+    echo 安装Jinja2
     cd ..
     tar -xzf Jinja2-2.10.1.tar.gz 
     cd Jinja2-2.10.1
@@ -55,7 +98,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装simplejson
+    echo 安装simplejson
     cd ..
     tar -xzf simplejson-3.16.0.tar.gz 
     cd simplejson-3.16.0
@@ -65,7 +108,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装pycparser
+    echo 安装pycparser
     cd ..
     tar -xzf pycparser-2.19.tar.gz
     cd pycparser-2.19
@@ -75,7 +118,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装cffi
+    echo 安装cffi
     cd ..
     tar -xzf cffi-1.12.3.tar.gz 
     cd cffi-1.12.3
@@ -85,7 +128,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装ipaddress
+    echo 安装ipaddress
     cd ..
     tar -xzf ipaddress-1.0.22.tar.gz 
     cd ipaddress-1.0.22
@@ -95,7 +138,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装six
+    echo 安装six
     cd ..
     tar -xzf six-1.12.0.tar.gz 
     cd six-1.12.0
@@ -105,7 +148,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装asn1crypto
+    echo 安装asn1crypto
     cd ..
     tar -xzf asn1crypto-0.24.0.tar.gz 
     cd asn1crypto-0.24.0
@@ -115,7 +158,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装idna
+    echo 安装idna
     cd ..
     tar -xzf idna-2.8.tar.gz 
     cd idna-2.8
@@ -125,7 +168,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装pyasn1
+    echo 安装pyasn1
     cd ..
     tar -xzf pyasn1-0.4.5.tar.gz 
     cd pyasn1-0.4.5
@@ -135,7 +178,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装PyNaCl
+    echo 安装PyNaCl
     cd ..
     tar -xzf PyNaCl-1.3.0.tar.gz 
     cd PyNaCl-1.3.0
@@ -145,7 +188,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装enum34
+    echo 安装enum34
     cd ..
     tar xf enum34-1.1.8.tar.gz
     cd enum34-1.1.8
@@ -155,7 +198,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装cryptography
+    echo 安装cryptography
     cd ..
     tar -xzf cryptography-2.6.1.tar.gz 
     cd cryptography-2.6.1
@@ -165,7 +208,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装bcrypt
+    echo 安装bcrypt
     cd ..
     tar -xzf bcrypt-3.1.6.tar.gz 
     cd bcrypt-3.1.6
@@ -175,7 +218,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装paramiko
+    echo 安装paramiko
     cd ..
     tar -xzf paramiko-2.4.2.tar.gz 
     cd paramiko-2.4.2
@@ -185,7 +228,7 @@ else
     exit 1
 fi
 if [ $? = "0" ]; then    
-    #安装ansible
+    echo 安装ansible
     cd ..
     tar -xzf ansible-2.9.7.tar.gz 
     cd ansible-2.9.7/

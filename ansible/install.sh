@@ -1,12 +1,14 @@
 #!/bin/bash
-
+export Sname=$(readlink -f $0)
+export Spath=$(dirname ${Sname})
+export Sroot=$(dirname ${Spath})
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH    
 set -e
 set +x
 #安装系统依赖
-yum install -y python-dateutil gcc gcc-c++ bison flex readline-devel zlib-devel tcl wget  unzip xz  make gmake automake libtool libtool texinfo
-yum install -y python-devel  openssl-devel libffi-devel 
+sudo yum install -y python-dateutil gcc gcc-c++ bison flex readline-devel zlib-devel tcl wget  unzip xz  make gmake automake libtool libtool texinfo
+sudo yum install -y python-devel  openssl-devel libffi-devel 
 
 #######################################
 #   旧版本需要安装部分 
@@ -23,7 +25,7 @@ else
 fi
 if [ $? = "0" ]; then
     echo "安装:libffi-3.4.2"
-    cd ..	
+    ${Spath}	
     tar xvf libffi-3.4.2.tar.bz2
     cd libffi-3.4.2
     ./autogen.sh
@@ -35,7 +37,7 @@ fi
 
 if [ $? = "0" ]; then
     echo "安装:Python-2.7.18.tar.xz"
-    cd ..	
+    ${Spath}	
     tar xvf Python-2.7.18.tar.xz
     cd Python-2.7.18    
     ./configure  && make && make install
@@ -49,7 +51,7 @@ fi
 #######################################
 if [ $? = "0" ]; then
     echo "安装setuptools"
-    cd ..
+    ${Spath}
     unzip setuptools-41.1.0.zip
     cd setuptools-41.1.0
     python setup.py install
@@ -59,7 +61,7 @@ else
 fi
 if [ $? = "0" ]; then   
     echo "安装pycrypto"
-    cd ..
+    ${Spath}
     tar -xzf pycrypto-2.6.1.tar.gz 
     cd pycrypto-2.6.1
     python setup.py install
@@ -69,7 +71,7 @@ else
 fi
 if [ $? = "0" ]; then   
     echo "安装PyYAML"
-    cd ..
+    ${Spath}
     tar -xzf PyYAML-5.1.tar.gz 
     cd PyYAML-5.1
     python setup.py install
@@ -79,7 +81,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装MarkupSafe
-    cd ..
+    ${Spath}
     tar -xzf MarkupSafe-1.1.1.tar.gz 
     cd MarkupSafe-1.1.1
     python setup.py  install
@@ -89,7 +91,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装Jinja2
-    cd ..
+    ${Spath}
     tar -xzf Jinja2-2.10.1.tar.gz 
     cd Jinja2-2.10.1
     python setup.py  install
@@ -99,7 +101,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装simplejson
-    cd ..
+    ${Spath}
     tar -xzf simplejson-3.16.0.tar.gz 
     cd simplejson-3.16.0
     python setup.py install
@@ -109,7 +111,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装pycparser
-    cd ..
+    ${Spath}
     tar -xzf pycparser-2.19.tar.gz
     cd pycparser-2.19
     python setup.py install
@@ -119,7 +121,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装cffi
-    cd ..
+    ${Spath}
     tar -xzf cffi-1.12.3.tar.gz 
     cd cffi-1.12.3
     python setup.py install
@@ -129,7 +131,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装ipaddress
-    cd ..
+    ${Spath}
     tar -xzf ipaddress-1.0.22.tar.gz 
     cd ipaddress-1.0.22
     python setup.py install
@@ -139,7 +141,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装six
-    cd ..
+    ${Spath}
     tar -xzf six-1.12.0.tar.gz 
     cd six-1.12.0
     python setup.py install
@@ -149,7 +151,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装asn1crypto
-    cd ..
+    ${Spath}
     tar -xzf asn1crypto-0.24.0.tar.gz 
     cd asn1crypto-0.24.0
     python setup.py install
@@ -159,7 +161,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装idna
-    cd ..
+    ${Spath}
     tar -xzf idna-2.8.tar.gz 
     cd idna-2.8
     python setup.py install
@@ -169,7 +171,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装pyasn1
-    cd ..
+    ${Spath}
     tar -xzf pyasn1-0.4.5.tar.gz 
     cd pyasn1-0.4.5
     python setup.py install
@@ -179,7 +181,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装PyNaCl
-    cd ..
+    ${Spath}
     tar -xzf PyNaCl-1.3.0.tar.gz 
     cd PyNaCl-1.3.0
     python setup.py install
@@ -189,7 +191,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装enum34
-    cd ..
+    ${Spath}
     tar xf enum34-1.1.8.tar.gz
     cd enum34-1.1.8
     python setup.py install
@@ -199,7 +201,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装cryptography
-    cd ..
+    ${Spath}
     tar -xzf cryptography-2.6.1.tar.gz 
     cd cryptography-2.6.1
     python setup.py install
@@ -209,7 +211,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装bcrypt
-    cd ..
+    ${Spath}
     tar -xzf bcrypt-3.1.6.tar.gz 
     cd bcrypt-3.1.6
     python setup.py install
@@ -219,7 +221,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装paramiko
-    cd ..
+    ${Spath}
     tar -xzf paramiko-2.4.2.tar.gz 
     cd paramiko-2.4.2
     python setup.py install
@@ -229,7 +231,7 @@ else
 fi
 if [ $? = "0" ]; then    
     echo 安装ansible
-    cd ..
+    ${Spath}
     tar -xzf ansible-2.9.7.tar.gz 
     cd ansible-2.9.7/
     python setup.py install
